@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    <title>{% block title%} {% endblock %}</title>
+</head>
+<body>
+    <nav>
+        {% if g.administrador%}
+            <a href="{{ url_for('admin.crear_empleado')}}">Crear Empleado</a>
+            <a href="{{ url_for('admin.lista_empleados')}}">Ver Empleados</a>
+            <a href="{{ url_for('cliente.lista_clientes') }}">Ver Clientes</a>
+            <a href="{{ url_for('cliente.crear_cliente') }}">Crear Clientes</a>
+            <a href="{{ url_for('habitacion.lista_habitaciones') }}" >Ver habitacion</a>
+            <a href="{{ url_for('habitacion.crear_habitacion') }}" >Crear habitacion</a>
+            <a href="{{ url_for('reserva.lista_reservas') }}" >Ver Reserva</a>
+            <a href="{{ url_for('reserva.crear_reserva') }}" >Crear reserva</a>
+            <a href="{{ url_for('auth.logout')}}">Salir</a>
+        {% elif g.empleado %}
+            <a href="{{ url_for('cliente.lista_clientes') }}">Ver Clientes</a>
+            <a href="{{ url_for('cliente.crear_cliente') }}">Crear Clientes</a>
+            <a href="{{ url_for('empleado.home')}}">empleado home</a>
+            <a href="{{ url_for('auth.logout')}}">Salir</a>
+        {% else %}
+            <a href="{{ url_for('public.home')}}">home</a>
+            <a href="{{ url_for('auth.login')}}">Ingresar</a>
+        {% endif %}
+
+
+
+    </nav>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- <script>
+        window.onload = function(){
+            var fecha = new Date(); //Fecha actual
+            var mes = fecha.getMonth()+1; //obteniendo mes
+            var dia = fecha.getDate(); //obteniendo dia
+            var ano = fecha.getFullYear(); //obteniendo año
+            if(dia<10)
+                dia='0'+dia; //agrega cero si el menor de 10
+            if(mes<10)
+                mes='0'+mes //agrega cero si el menor de 10
+            document.getElementById('fecha_nacimiento').max=ano+"-"+mes+"-"+dia;
+        }
+    </script> -->
+</body>
+</html>

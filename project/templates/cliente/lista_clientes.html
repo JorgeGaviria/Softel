@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Lista de Clientes{% endblock %}</h1>
+    <table>
+        <tr>
+            <th>Documento</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Fecha Nacimiento</th>
+            <th>Nacionalidad</th>
+            <th>Operaciones</th>
+        </tr>
+        {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente['dni']}}</td>
+                <td>{{ cliente['nombres']}}</td>
+                <td>{{ cliente['apellidos']}}</td>
+                <td>{{ cliente['fecha_nacimiento']}}</td>
+                <td>
+                    {% for pais in g.paises %}
+                        {% if cliente['nacionalidad'] == pais['idtbl_paises'] %}
+                            {{ pais['nombre'] }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url_for('cliente.editar_cliente',idtbl_cliente = cliente['idtbl_cliente']) }}">Actualizar</a>
+                    <a href="{{ url_for('cliente.eliminar_cliente',idtbl_cliente = cliente['idtbl_cliente']) }}">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+

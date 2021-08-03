@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Crear Habitacion{% endblock %}</h1>
+    <form method="POST">
+        <p>Nombre</p>
+        <input type="text" name="nombre">
+        <p>Valor</p>
+        <input type="number" name="valor">
+        <p>Capacidad</p>
+        <input type="number" name="capacidad">
+        <p>Estado</p>
+        <input type="text" name="estado">
+        <p>Descripcion</p>
+        <input type="text" name="descripcion">
+        <br>
+        <br>
+        <input type="submit" value="Crear">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {%if messages %} 
+            {%for message in messages %}
+                <p><strong>¡Error?</strong> {{ message }}</p>
+            {% endfor%}
+        {% endif%}
+    {% endwith %}
+{% endblock %}

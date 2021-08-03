@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>{% block title %}Editar Cliente{% endblock %}</h1>
+
+    <form method="POST">
+        <p>Nombres:</p>
+        <input type="text" name="nombres" value="{{ request.form['nombres'] or cliente['nombres']}}" required>
+        <p>Apellidos:</p>
+        <input type="text" name="apellidos" value="{{ request.form['apellidos'] or cliente['apellidos'] }}" required>
+        <p>Dni:</p>
+        <input type="number" name="dni" value="{{ request.form['dni'] or cliente['dni']}}" required>
+        <p>Fecha Nacimiento:</p>
+        <input type="date" max="" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ request.form['fecha_nacimiento'] or cliente['fecha_nacimiento'] }}" required>
+        <p>Nacionalidad: </p>
+        <select name="nacionalidad">
+            {% for pais in g.paises%}
+                {% if pais['idtbl_paises'] == cliente['nacionalidad'] %}
+                    <option value="{{ pais['idtbl_paises'] }}" selected=selected> {{ pais['nombre']}}</option>
+                {% else %}
+                    <option value="{{ pais['idtbl_paises'] }}"> {{ pais['nombre']}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Editar">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>¡Error!</strong> {{ message }}</p>
+            {% endfor%}
+        
+        {% endif %}
+    {% endwith %}
+
+
+{% endblock %}

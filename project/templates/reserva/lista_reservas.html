@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Lista de Reservas{% endblock %}</h1>
+    <table>
+        <tr>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+            <th>habitacion</th>
+            <th>Empleado</th>
+            <th>Cliente</th>
+            <th>Operaciones</th>
+        </tr>
+        {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva['fecha_inicio']}}</td>
+                <td>{{ reserva['fecha_fin']}}</td>
+                <td>{{ reserva['estado']}}</td>
+                <td>
+                    {% for habitacion in habitaciones %}
+                        {% if habitacion['idtbl_habitacion'] == reserva['habitacion'] %}
+                            {{ habitacion['nombre'] }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for empleado in empleados %}
+                        {% if empleado['idtbl_empleado'] == reserva['empleado'] %}
+                            {{ empleado['nombres'] }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for relacion in relaciones %}
+                        {% if relacion['reserva'] == reserva['idtbl_reserva'] %}
+                            {% for cliente in clientes %}
+                                {% if cliente['idtbl_cliente'] == relacion['cliente'] %}
+                                    {{ cliente['nombres'] }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url_for('reserva.editar_reserva',idtbl_reserva=reserva['idtbl_reserva']) }}">Actualizar</a>
+                    <a href="{{ url_for('reserva.eliminar_reserva',idtbl_reserva=reserva['idtbl_reserva']) }}">Eliminar</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+

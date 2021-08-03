@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <h1>{%block title %}Crear Reserva{% endblock%}</h1>
+    <form method="POST">
+        <p>Fecha Inico:</p>
+        <input type="date" name="fecha_inicio" required>
+        <p>Fecha Fin:</p>
+        <input type="date" name="fecha_fin" required>
+        <p>estado:</p>
+        <input type="text" name="estado" required>
+        <p>Cliente 1:</p>
+        <input type="text" name="1" class="input-cliente" required>
+        <input type="text" name="tam-clientes" id="tam-clientes" hidden>
+        <div class="clientes">
+        </div>
+        <a class="agregar-cliente">+</a>
+        <p>habitacion </p>
+        <input type="text" name="habitacion" required>
+        <br>
+        <br>
+        <input type="submit" value="Crear" id="btn-crear">
+    </form>
+
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>¡Error!</strong> {{ message }}</p>
+            {% endfor%}
+        
+        {% endif %}
+    {% endwith %}
+    <script>
+        const btnAgregarCliente = document.querySelector('.agregar-cliente');
+        const divClientes = document.querySelector('.clientes');
+        let clientes = 1;
+        const btnCrear = document.querySelector('#btn-crear');
+        btnAgregarCliente.addEventListener('click',agregarCliente);
+        const tamClientes = document.getElementById('tam-clientes');
+        tamClientes.value = clientes;
+
+        console.log(tamClientes.value)
+        function agregarCliente(e){
+            e.preventDefault()
+            clientes+=1;
+            tamClientes.value = clientes;
+            console.log(tamClientes.value);
+            const p = document.createElement('p');
+            p.textContent = `Cliente ${clientes} :`;
+            p.classList.add(clientes);
+            const input = document.createElement('input');
+            input.classList.add(clientes);
+            input.classList.add('input-cliente');
+            input.setAttribute('name',clientes);
+            divClientes.appendChild(p);
+            divClientes.appendChild(input);
+
+            // Crea boton para eliminar nuevos clientes
+            const eliminar = document.createElement('a');
+            eliminar.textContent = '-';
+            eliminar.classList.add(clientes);
+            divClientes.appendChild(eliminar);
+            eliminar.addEventListener('click',eliminarCliente);
+
+        }
+
+        function eliminarCliente(e){
+            const id = e.target.classList.value;
+            let tam = divClientes.childElementCount;
+            const elementos =   document.getElementsByClassName(id);
+            for(let i = 0;i<=elementos.length+1;i++){
+                divClientes.removeChild(elementos[0]);
+            }
+            clientes-=1;
+            tamClientes.value = clientes;
+            console.log(tamClientes.value)
+            renumerar();
+        }
+
+        function renumerar(){
+            eliminarHtml()
+            for(let i = 2;i<=clientes;i++){
+                const p = document.createElement('p');
+                p.textContent = `Cliente ${i} :`;
+                p.classList.add(i);
+                const input = document.createElement('input');
+                input.classList.add(i);
+                divClientes.appendChild(p);
+                divClientes.appendChild(input);
+                // Crea boton para eliminar nuevos clientes
+                const eliminar = document.createElement('a');
+                eliminar.textContent = '-';
+                eliminar.classList.add(i);
+                divClientes.appendChild(eliminar);
+                eliminar.addEventListener('click',eliminarCliente);
+            }
+        }
+
+        function eliminarHtml(){
+            while(divClientes.firstChild){
+                divClientes.removeChild(divClientes.firstChild)
+            }
+        }
+    </script>
+{% endblock %}

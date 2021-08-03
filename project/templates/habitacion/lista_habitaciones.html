@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title%}Lista Habitaciones {% endblock %}</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Valor</th>
+            <th>Capacidad</th>
+            <th>Estado</th>
+            <th>Descripcion</th>
+            <th>Operadores</th>
+
+        </tr>
+        {% for habitacion in habitaciones %}
+        <tr>
+            <td>{{ habitacion['nombre'] }}</td>
+            <td>{{ habitacion['valor'] }}</td>
+            <td>{{ habitacion['capacidad'] }}</td>
+            <td>{{ habitacion['estado'] }}</td>
+            <td>{{ habitacion['descripcion'] }}</td>
+            <td>
+                <a href="{{ url_for('habitacion.editar_habitacion',idtbl_habitacion = habitacion['idtbl_habitacion']) }}">Actualizar</a>
+                <a href="{{ url_for('habitacion.eliminar_habitacion',idtbl_habitacion = habitacion['idtbl_habitacion']) }}">Eliminar</a>
+
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <h1>{% block title %}Lista de Empleados{% endblock %}</h1>
+    <table>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Dni</th>
+            <th>Cargo</th>
+            <th>Operaciones</th>
+        </tr>
+        {% for empleado in empleados %}
+            <tr>
+                <td>{{ empleado['nombres'] }}</td>
+                <td>{{ empleado['apellidos'] }}</td>
+                <td>{{ empleado['dni'] }}</td>
+                <td>{% if empleado['cargo'] == 1 %}Administrador{% else %}Empleado{% endif %}  </td>
+                <td>
+                    <a href="{{ url_for('admin.editar_empleado',idtbl_empleado = empleado['idtbl_empleado'])}}">Actualizar</a> 
+                    <a href="{{ url_for('admin.eliminar_empleado',idtbl_empleado = empleado['idtbl_empleado'])}}">Eliminar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

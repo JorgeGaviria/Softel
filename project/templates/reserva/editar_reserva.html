@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <h1>{%block title %}Editar Reserva{% endblock%}</h1>
+    <form method="POST">
+        <p>Fecha Inico:</p>
+        <input type="date" name="fecha_inicio" required value="{{ request.form['fecha_inicio'] or reserva['fecha_inicio'] }}">
+        <p>Fecha Fin:</p>
+        <input type="date" name="fecha_fin" required value="{{ request.form['fecha_fin'] or reserva['fecha_fin'] }}">
+        <p>estado:</p>
+        <input type="text" name="estado" required value="{{ request.form['estado'] or reserva['estado'] }}">
+        <p>Cliente:</p>
+        <input type="text" name="cliente" required value="{{ request.form['cliente'] or reserva['cliente'] }}">
+        <p>Empleado </p>
+        <input type="text" name="empleado" required value="{{ request.form['empleado'] or reserva['empleado'] }}">
+        <p>habitacion </p>
+        <input type="text" name="habitacion" required value="{{ request.form['habitacion'] or reserva['habitacion'] }}">
+        <br>
+        <br>
+        <input type="submit" value="Crear">
+    </form>
+
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>¡Error!</strong> {{ message }}</p>
+            {% endfor%}
+        
+        {% endif %}
+    {% endwith %}
+
+{% endblock %}

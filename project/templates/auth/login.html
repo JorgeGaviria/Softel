@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Iniciar Sesión{% endblock %}</h1>
+    <form method="POST">
+        <p>Dni</p>
+        <input type="text" name="dni" required>
+        <p>Contraseña</p>
+        <input type="password" name="password" required>
+        <br>
+        <br>
+        <input type="submit" value="Ingresar">
+        
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>¡Error!</strong> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}

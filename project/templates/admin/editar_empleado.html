@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{%block content %}
+    <h1>{% block title %} Editar Empleado {% endblock%}</h1>
+    <form method="POST"> 
+        <p>Nombres:</p>
+        <input type="text" name="nombres" value="{{ empleado['nombres'] or request.form['nombres']}}" required>
+        <p>Apellidos:</p>
+        <input type="text"  name="apellidos" value="{{ empleado['apellidos'] or request.form['apellidos'] }}"  required>
+        <p>Dni:</p>
+        <input type="number" name="dni" value="{{ empleado['dni'] or request.form['dni'] }}" required>
+        <br>
+        <br>
+        <label for="cargo">Cargo:</label>
+        <select id="cargo" name="cargo" required>
+            {% if empleado['cargo'] == 1 %}
+                <option value="1" >Administrado</option>
+                <option value="2">Empleado</option>
+            {% else %}
+                <option value="2" >Empleado</option>
+                <option value="1" >Administrado</option>
+            {% endif %}
+        </select>
+        <p>Contraseña Anterior:</p>
+        <input type="password" name="password" required>
+        <p>Nueva Contraseña:</p>
+        <input type="password" name="password_new" required>
+        <br>
+        <br>
+        <input type="submit" value="Editar">
+           
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>¡Error!</strong>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}     
+    <h1>{{ password_check}}</h1>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Editar Habitacion{% endblock %}</h1>
+    <form method="POST">
+        <p>Nombre</p>
+        <input type="text" name="nombre" value="{{ request.form['nombre'] or habitacion['nombre'] }}">
+        <p>Valor</p>
+        <input type="number" name="valor" value="{{ request.form['valor'] or habitacion['valor'] }}">
+        <p>Capacidad</p>
+        <input type="number" name="capacidad" value="{{ request.form['capacidad'] or habitacion['capacidad'] }}">
+        <p>Estado</p>
+        <input type="text" name="estado" value="{{ request.form['estado'] or habitacion['estado'] }}">
+        <p>Descripcion</p>
+        <input type="text" name="descripcion" value="{{ request.form['descripcion'] or habitacion['descripcion'] }}">
+        <br>
+        <br>
+        <input type="submit" value="Editar" >
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {%if messages %} 
+            {%for message in messages %}
+                <p><strong>¡Error?</strong> {{ message }}</p>
+            {% endfor%}
+        {% endif%}
+    {% endwith %}
+
+{% endblock %}

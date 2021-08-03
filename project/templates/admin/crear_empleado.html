@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{%block content %}
+    <h1>{% block title %} Crear Empleado {% endblock%}</h1>
+    <form method="POST"> 
+        <p>Nombres:</p>
+        <input type="text" name="nombres">
+        <p>Apellidos:</p>
+        <input type="text" name="apellidos">
+        <p>Dni:</p>
+        <input type="number" name="dni">
+        <br>
+        <br>
+
+        <label for="cargo">Cargo:</label>
+        <select id="cargo" name="cargo">
+          <option value="3" default></option>
+          <option value="2">Empleado</option>
+          <option value="1">Administrado</option>
+        </select>
+        <p>Contraseña:</p>
+        <input type="password" name="password">
+        <p>Confirmar Contraseña:</p>
+        <input type="password" name="password_check">
+        <br>
+        <br>
+        <input type="submit" value="Crear">
+           
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p><strong>¡Error!</strong>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}     
+
+{% endblock %}
